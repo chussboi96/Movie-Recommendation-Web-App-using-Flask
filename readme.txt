@@ -13,7 +13,7 @@ Methodology:
 2. EDA
 3. Feature Engineering
 4. Machine Learning
-5. Integration of ML Model in GUI (sing Flask & Jinja)
+5. Integration of ML Model in GUI (using Flask & Jinja)
 
 
 About Dataset:
