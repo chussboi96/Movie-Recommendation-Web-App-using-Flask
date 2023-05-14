@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+      <style>
+    .bg-container {
+      background-image: url('../static/img/joker.jpg');
+      background-repeat: no-repeat;
+      background-size: cover;
+      background-position: center 25%;
+      height: 900px; /* Set your desired height */
+    }
+
+    .fixed-top {
+  position: fixed;
+  top: 0;
+  right: 0;
+  left: 0;
+  z-index: 1030;
+  background-color: rgba(0, 0, 0, 0.8); 
+}
+
+  </style>
+        <meta charset="utf-8">
+        <meta content="width=device-width, initial-scale=1.0" name="viewport">
+      
+        <title>Cosine similar movies</title>
+        <meta content="" name="description">
+        <meta content="" name="keywords">
+      
+        <!-- Favicons -->
+        <link href="../static/img/favicon.png" rel="icon">
+        <link href="../static/img/apple-touch-icon.png" rel="apple-touch-icon">
+      
+        <!-- Google Fonts -->
+        <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Raleway:300,300i,400,400i,500,500i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
+      
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+        <!-- Vendor CSS Files -->
+        <link href="../static/vendor/aos/aos.css" rel="stylesheet">
+        <link href="../static/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+        <link href="../static/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
+        <link href="../static/vendor/boxicons/css/boxicons.min.css" rel="stylesheet">
+        <link href="../static/vendor/glightbox/css/glightbox.min.css" rel="stylesheet">
+        <link href="../static/vendor/remixicon/remixicon.css" rel="stylesheet">
+        <link href="../static/vendor/swiper/swiper-bundle.min.css" rel="stylesheet">
+      
+        <!-- Template Main CSS File -->
+        <link href="../static/css/style.css" rel="stylesheet">
+      </head>
+
+<body>
+  <div class="bg-container">
+    <header id="header" class="fixed-top ">
+        <div class="container d-flex align-items-center justify-content-lg-between">
+          <h1 class="logo me-auto me-lg-0"><a href="index.html">HJ<span>.</span></a></h1>
+    
+          <nav id="navbar" class="navbar order-last order-lg-0">
+            <ul>
+              <li><a class="nav-link scrollto" href="index.html">Home</a></li>
+              <li><a href="#">Get your Recommendations<i class="fas fa-caret-down"></i></a>
+                <div class="drop-down">
+                    <ul>
+                      <li><a href="/recommendations_by_choice">By Choice</a></li>
+                      <li><a href="/recommend">MovieMatchMaker</a></li>
+                    </ul>
+                </div>
+                </li>
+              <li><a class="nav-link scrollto" href="#services">Services</a></li>
+            <li><a class="nav-link scrollto" href="#about">About</a></li>
+            <li><a class="nav-link scrollto" href="index.html">Contact Us</a></li>
+              
+            <i class="bi bi-list mobile-nav-toggle"></i>
+          </nav><!-- .navbar -->
+          <a href="Signin.html" class="get-started-btn scrollto">Login/Signup</a>
+    
+        </div>
+      </header><!-- End Header -->
+
+  {% block content %}
+      <div class="contain">
+          <form action="/recommendations_by_choice" method="POST" id="choice-form">
+              <div class="select-heading">
+                  <h2>Select your top 3 Genres</h2>
+              </div>
+              <div class="row">
+                  <ul class="select-list">
+                      {% for genre in genres %}
+                          <div class="col">
+                              <li>
+                                  <label>
+                                      <input type="checkbox" class="genre-checkbox" name="genre-checkbox-{{ loop.index }}" id="genre-checkbox-{{ loop.index }}" value="{{ genre }}">
+                                      <div class="select-box">
+                                          <p class="select-name" style="-webkit-line-clamp: 1;"> {{ genre }} </p>
+                                      </div>
+                                  </label>
+                              </li>
+                          </div>
+                      {% endfor %}
+                  </ul>
+              </div>
+  
+              <div class="select-heading">
+                  <h2>Select your top 5 Cast</h2>
+              </div>
+              <div class="row">
+                  <ul class="select-list">
+                      {% for cast in cast_list %}
+                          <div class="col">
+                              <li>
+                                  <label>
+                                      <input type="checkbox" class="cast-checkbox" name="cast-checkbox-{{ loop.index }}" value="{{ cast }}">
+                                      <div class="select-box">
+                                          <p class="select-name" style="-webkit-line-clamp: 2;">{{ cast }}</p>
+                                      </div>
+                                  </label>
+                              </li>
+                          </div>
+                      {% endfor %}
+                  </ul>
+              </div>
+              <button type="submit" style="background-color: #ffc451;">Lezzgo</button>
+          </form>
+      </div>
+      {% if recommendations %}
+          <h2>Recommended Movies</h2>
+          <ul>
+              {% for movie in recommendations %}
+                  <li>{{ movie }}</li>
+              {% endfor %}
+          </ul>
+      {% endif %}
+  {% endblock %}
+  
+
+
+<!-- ======= Footer ======= -->
+<footer id="footer-trend">
+    <div class="footer-top">
+      <div class="container">
+        <div class="row">
+
+          <div class="col-lg-3 col-md-6">
+            <div class="footer-info">
+              <h3>HJ<span>.</span></h3>
+              <p>
+                Street 62, G11/2 <br>
+                Islamabad, Pakistan<br><br>
+                <strong>Phone:</strong> +92309921881<br>
+                <strong>Email:</strong> hammad.javaid826@gmail.com<br>
+              </p>
+              <div class="social-links mt-3">
+                <a href="#" class="twitter"><i class="bx bxl-twitter"></i></a>
+                <a href="#" class="facebook"><i class="bx bxl-facebook"></i></a>
+                <a href="#" class="instagram"><i class="bx bxl-instagram"></i></a>
+                <a href="#" class="google-plus"><i class="bx bxl-skype"></i></a>
+                <a href="#" class="linkedin"><i class="bx bxl-linkedin"></i></a>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-lg-2 col-md-6 footer-links">
+            <h4>Useful Links</h4>
+            <ul>
+              <li><i class="bx bx-chevron-right"></i> <a href="#">Home</a></li>
+              <li><i class="bx bx-chevron-right"></i> <a href="#">About us</a></li>
+              <li><i class="bx bx-chevron-right"></i> <a href="#">Services</a></li>
+              <li><i class="bx bx-chevron-right"></i> <a href="#">Terms of service</a></li>
+              <li><i class="bx bx-chevron-right"></i> <a href="#">Privacy policy</a></li>
+            </ul>
+          </div>
+
+          <div class="col-lg-3 col-md-6 footer-links">
+            <h4>Our Services</h4>
+            <ul>
+              <li><i class="bx bx-chevron-right"></i> <a href="#">Web Design</a></li>
+              <li><i class="bx bx-chevron-right"></i> <a href="#">Web Development</a></li>
+              <li><i class="bx bx-chevron-right"></i> <a href="#">Product Management</a></li>
+              <li><i class="bx bx-chevron-right"></i> <a href="#">Marketing</a></li>
+              <li><i class="bx bx-chevron-right"></i> <a href="#">Graphic Design</a></li>
+            </ul>
+          </div>
+
+          <div class="col-lg-4 col-md-6 footer-newsletter">
+            <h4>Our Newsletter</h4>
+            <p>Enter your email address below to subscribe to our Newsletter.</p>
+            <form action="" method="post">
+              <input type="email" name="email"><input type="submit" value="Subscribe">
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="container">
+      <div class="copyright">
+        &copy; Copyright <strong><span>Chussboi96</span></strong>. All Rights Reserved
+      </div>
+      <div class="credits">
+        Designed and developed by HAMMAD JAVAID</a>
+      </div>
+    </div>
+  </footer><!-- End Footer -->
+</div>
+
+</div>
+
+<script>
+  window.addEventListener('scroll', function () {
+    const header = document.querySelector('#header');
+    if (window.scrollY > 50) {
+      header.classList.add('scrolled');
+    } else {
+      header.classList.remove('scrolled');
+    }
+  });
+</script>
+
+
+</body>
+</html>
